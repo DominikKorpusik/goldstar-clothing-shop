@@ -1,12 +1,19 @@
+//  Purpose: Sign up form component
+
 import { useState } from "react";
+
+// Utils
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
+// Components
 import FormInput from "../form-input/form-input.component";
-import "./sign-up-form.styles.scss";
 import Button from "../button/button.component";
+
+// Styles
+import "./sign-up-form.styles.scss";
 
 const deafultFromFields = {
   displayName: "",
