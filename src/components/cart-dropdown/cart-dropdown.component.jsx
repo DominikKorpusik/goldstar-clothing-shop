@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { CartContext } from "../../contexts/cart.context";
 
@@ -9,11 +10,12 @@ import "./cart-dropdown.styles.scss";
 
 const CartDropdown = () => {
   const { cartItems } = useContext(CartContext);
+  const cartLength = cartItems.length;
 
   return (
     <div className="cart-dropdown-container">
       <div className="cart-items">
-        {cartItems.length ? (
+        {cartLength ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))
@@ -21,7 +23,11 @@ const CartDropdown = () => {
           <span className="empty-message">Your cart is empty</span>
         )}
       </div>
-      <Button>GO TO CHECKOUT</Button>
+      {cartLength ? (
+        <Link to="/checkout">
+          <Button>GO TO CHECKOUT</Button>
+        </Link>
+      ) : null}
     </div>
   );
 };
