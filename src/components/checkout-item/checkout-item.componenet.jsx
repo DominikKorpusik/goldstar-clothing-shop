@@ -8,7 +8,7 @@ const DEFAULT_VALUES = {
 };
 
 export const CheckoutItem = ({ cartItem }) => {
-  const { id, imageUrl, name, price, quantity } = cartItem;
+  const { imageUrl, name, price, quantity } = cartItem;
   const { increase, decrease } = DEFAULT_VALUES;
   const { updateItemInCart, removeItemFromCart } = useContext(CartContext);
 
@@ -25,30 +25,34 @@ export const CheckoutItem = ({ cartItem }) => {
     }
   };
 
-  const removeItem = () => {
-    removeItemFromCart(cartItem);
-  };
+  const removeItemHandler = () => removeItemFromCart(cartItem);
 
   const isDisabled = cartItem.quantity === 1 ? true : false;
 
   return (
-    <tr key={id}>
-      <td>
+    <div className="checkout-item-container">
+      <div className="image-container">
         <img src={imageUrl} alt={`${name}`} />
-      </td>
-      <td>{name}</td>
-      <td>
-        <button onClick={() => changeQuantity(decrease)} disabled={isDisabled}>
-          -
+      </div>
+      <span className="name">{name}</span>
+      <span className="quantity">
+        <button
+          className="arrow"
+          disabled={isDisabled}
+          onClick={() => changeQuantity(decrease)}
+        >
+          &#10094;
         </button>
-        {quantity}
-        <button onClick={() => changeQuantity(increase)}>+</button>
-      </td>
-      <td>{price}</td>
-      <td>
-        <button onClick={removeItem}>Remove</button>
-      </td>
-    </tr>
+        <span className="value">{quantity}</span>
+        <button className="arrow" onClick={() => changeQuantity(increase)}>
+          &#10095;
+        </button>
+      </span>
+      <span className="price">{price}</span>
+      <div className="remove-button" onClick={removeItemHandler}>
+        &#10005;
+      </div>
+    </div>
   );
 };
 
