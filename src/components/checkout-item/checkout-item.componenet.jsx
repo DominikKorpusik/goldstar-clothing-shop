@@ -1,6 +1,14 @@
-import "./checkout-item.styles.scss";
 import { CartContext } from "../../contexts/cart.context";
 import { useContext } from "react";
+import {
+  CheckoutItemContainer,
+  ImageContainer,
+  BaseSpan,
+  Quantity,
+  Arrow,
+  Value,
+  RemoveButton,
+} from "./checkout-item.styles";
 
 const DEFAULT_VALUES = {
   increase: true,
@@ -30,29 +38,21 @@ export const CheckoutItem = ({ cartItem }) => {
   const isDisabled = cartItem.quantity === 1 ? true : false;
 
   return (
-    <div className="checkout-item-container">
-      <div className="image-container">
+    <CheckoutItemContainer>
+      <ImageContainer>
         <img src={imageUrl} alt={`${name}`} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <button
-          className="arrow"
-          disabled={isDisabled}
-          onClick={() => changeQuantity(decrease)}
-        >
+      </ImageContainer>
+      <BaseSpan>{name}</BaseSpan>
+      <Quantity>
+        <Arrow disabled={isDisabled} onClick={() => changeQuantity(decrease)}>
           &#10094;
-        </button>
-        <span className="value">{quantity}</span>
-        <button className="arrow" onClick={() => changeQuantity(increase)}>
-          &#10095;
-        </button>
-      </span>
-      <span className="price">{price}</span>
-      <div className="remove-button" onClick={removeItemHandler}>
-        &#10005;
-      </div>
-    </div>
+        </Arrow>
+        <Value>{quantity}</Value>
+        <Arrow onClick={() => changeQuantity(increase)}>&#10095;</Arrow>
+      </Quantity>
+      <BaseSpan>{price}</BaseSpan>
+      <RemoveButton onClick={removeItemHandler}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
   );
 };
 
